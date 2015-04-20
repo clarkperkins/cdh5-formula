@@ -204,7 +204,7 @@
     </property>
     <property>
       <name>dfs.web.authentication.kerberos.keytab</name>
-      <value>/etc/hadoop/conf/HTTP.keytab</value>
+      <value>/etc/hadoop/conf/hdfs.keytab</value>
     </property>
     <!--
     <property>
