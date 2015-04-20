@@ -201,7 +201,11 @@
     <property>
       <name>dfs.web.authentication.kerberos.principal</name>
       <value>HTTP/_HOST@{{ krb5.realm }}</value>
-     </property>
+    </property>
+    <property>
+      <name>dfs.web.authentication.kerberos.keytab</name>
+      <value>/etc/hadoop/conf/HTTP.keytab</value>
+    </property>
     <!--
     <property>
     <name>dfs.http.policy</name>

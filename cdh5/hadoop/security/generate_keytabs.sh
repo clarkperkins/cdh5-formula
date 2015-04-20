@@ -30,7 +30,7 @@ echo "rkt HTTP.keytab"
 echo "wkt yarn.keytab"
 ) | ktutil
 
-rm -rf *-unmerged.keytab HTTP.keytab
+rm -rf *-unmerged.keytab
 id -u hdfs &> /dev/null && chown hdfs:hadoop hdfs.keytab
 id -u mapred &> /dev/null && chown mapred:hadoop mapred.keytab
 id -u yarn &> /dev/null && chown yarn:hadoop yarn.keytab
