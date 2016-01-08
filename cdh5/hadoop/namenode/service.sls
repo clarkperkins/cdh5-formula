@@ -135,8 +135,8 @@ hdfs_mapreduce_var_dir:
       - service: hadoop-hdfs-namenode-svc
 
 # create a user directory owned by the stack user
-{% for user in pillar.__stackdio__.users %}
-{% set user = user.username %}
+{% for user_obj in pillar.__stackdio__.users %}
+{% set user = user_obj.username %}
 hdfs_{{ user }}_dir:
   cmd:
     - run
