@@ -16,6 +16,7 @@
 webserver:
   pkg:
     - installed
+    - refresh: true
     - name: {{ settings.package_name }}
   service:
     - running

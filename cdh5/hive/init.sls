@@ -16,13 +16,14 @@ include:
 hive:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - hive
       - hive-metastore
       - hive-server2
     - require:
       - pkg: mysql
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
     - require_in:
       - file: /etc/hive/conf/hive-site.xml
 
@@ -30,6 +31,7 @@ hive:
 mysql:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - mysql-server
       {% if grains['os_family'] == 'Debian' %}

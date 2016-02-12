@@ -13,6 +13,7 @@ include:
 impala-state-store-install:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - impala
       - impala-catalog
@@ -20,7 +21,7 @@ impala-state-store-install:
       - impala-shell
       - cyrus-sasl-gssapi
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
     - require_in:
       - file: /etc/default/impala
       - file: /etc/default/bigtop-utils

@@ -13,6 +13,7 @@ include:
 scm_server_packages:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - cloudera-manager-server
       - cloudera-manager-daemons

@@ -42,6 +42,7 @@ chown-keystore:
 nginx:
   pkg:
     - installed
+    - refresh: true
 
 /etc/nginx/conf.d:
   file:

@@ -9,11 +9,13 @@ include:
 sqoop2-server:
   pkg:
     - installed
+    - refresh: true
 
 # Add this here too so sqoop doesn't depend on hive
 mysql:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - mysql-server
       {% if grains['os_family'] == 'Debian' %}

@@ -7,6 +7,7 @@
 krb-pkgs:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - krb5-workstation
       - krb5-libs

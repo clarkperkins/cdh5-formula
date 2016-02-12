@@ -11,11 +11,12 @@ include:
 
 sentry:
   pkg:
-    - installed 
+    - installed
+    - refresh: true
     - pkgs:
       - sentry
       - cyrus-sasl-gssapi
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
     - require_in:
       - cmd: generate_sentry_keytabs

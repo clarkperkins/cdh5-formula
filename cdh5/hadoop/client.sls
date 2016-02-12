@@ -11,8 +11,9 @@ include:
 hadoop-client: 
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
       {% if salt['pillar.get']('cdh5:security:enable', False) %}
       - file: krb5_conf_file
       {% endif %}

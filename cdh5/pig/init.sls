@@ -4,8 +4,9 @@ include:
 pig:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - pig
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
 

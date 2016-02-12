@@ -15,8 +15,9 @@ include:
 oozie-client:
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
 
 /etc/profile.d/oozie.sh:
   file:

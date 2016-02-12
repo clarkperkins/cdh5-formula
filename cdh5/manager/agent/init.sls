@@ -12,6 +12,7 @@ include:
 scm_agent_packages:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - cloudera-manager-agent
       - cloudera-manager-daemons

@@ -24,8 +24,9 @@ include:
 hadoop-hdfs-namenode:
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
       {% if salt['pillar.get']('cdh5:security:enable', False) %}
       - file: krb5_conf_file
       {% endif %}
@@ -41,8 +42,9 @@ hadoop-hdfs-namenode:
 hadoop-yarn-resourcemanager:
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
       {% if salt['pillar.get']('cdh5:security:enable', False) %}
       - file: krb5_conf_file
       {% endif %}
@@ -57,8 +59,9 @@ hadoop-yarn-resourcemanager:
 hadoop-mapreduce:
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
       {% if salt['pillar.get']('cdh5:security:enable', False) %}
       - file: krb5_conf_file
       {% endif %}
@@ -72,8 +75,9 @@ hadoop-mapreduce:
 hadoop-hdfs-zkfc:
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
       {% if salt['pillar.get']('cdh5:security:enable', False) %}
       - file: krb5_conf_file
       {% endif %}

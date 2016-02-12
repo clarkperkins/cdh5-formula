@@ -13,13 +13,14 @@ include:
 impala-server-install:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - impala
       - impala-server
       - impala-shell
       - cyrus-sasl-gssapi
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
     - require_in:
       - file: /etc/default/impala
       - file: /etc/default/bigtop-utils

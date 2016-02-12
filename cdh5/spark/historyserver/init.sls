@@ -10,8 +10,9 @@ include:
 spark-history-server:
   pkg:
     - installed
+    - refresh: true
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
 
 
 /etc/spark/conf/spark-defaults.conf:

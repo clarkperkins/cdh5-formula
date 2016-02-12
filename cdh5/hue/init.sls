@@ -18,12 +18,13 @@ include:
 hue:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - hue
       - hue-server
       - hue-plugins
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
 
 /mnt/tmp/hadoop:
   file:

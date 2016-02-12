@@ -21,15 +21,17 @@ include:
 unzip:
   pkg:
     - installed
+    - refresh: true
 
 oozie:
   pkg:
     - installed
+    - refresh: true
     - pkgs:
       - oozie
       - oozie-client
     - require:
-      - module: cdh5_refresh_db
+      - pkgrepo: cloudera_cdh5
 
 /etc/oozie/conf/oozie-log4j.properties:
   file:
