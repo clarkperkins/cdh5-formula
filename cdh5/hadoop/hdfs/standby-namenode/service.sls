@@ -43,7 +43,7 @@ hadoop-hdfs-zkfc-svc:
 ##
 # Starts the namenode service on a standby namenode
 #
-# Depends on: JDK7
+# Depends on: JDK
 ##
 hadoop-hdfs-namenode-svc:
   service:
@@ -52,15 +52,5 @@ hadoop-hdfs-namenode-svc:
     - require:
       - pkg: hadoop-hdfs-namenode
       - cmd: init_standby_namenode
-    - watch:
-      - file: /etc/hadoop/conf
-
-hadoop-yarn-resourcemanager-svc:
-  service:
-    - running
-    - name: hadoop-yarn-resourcemanager
-    - require:
-      - pkg: hadoop-yarn-resourcemanager
-      - service: hadoop-hdfs-namenode-svc
     - watch:
       - file: /etc/hadoop/conf

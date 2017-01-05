@@ -5,21 +5,30 @@ components:
   - title: Hadoop Client Node
     description: Hadoop Client Node
     sls_path: cdh5.hadoop.client
-  - title: NameNode
+  - title: HDFS NameNode
     description: Hadoop NameNode component of CDH5
-    sls_path: cdh5.hadoop.namenode
-  - title: Standby NameNode
+    sls_path: cdh5.hadoop.hdfs.namenode
+  - title: HDFS Standby NameNode
     description: Standby NameNode for high-availability
-    sls_path: cdh5.hadoop.standby-namenode
-  - title: JournalNode
+    sls_path: cdh5.hadoop.hdfs.standby-namenode
+  - title: HDFS JournalNode
     description: Hadoop JournalNode for high-availability
-    sls_path: cdh5.hadoop.journalnode
-  - title: DataNode
+    sls_path: cdh5.hadoop.hdfs.journalnode
+  - title: HDFS DataNode
     description: Hadoop DataNode component of CDH5
-    sls_path: cdh5.hadoop.datanode
+    sls_path: cdh5.hadoop.hdfs.datanode
+  - title: YARN ResourceManager
+    description: Hadoop ResourceManager component of CDH5
+    sls_path: cdh5.hadoop.yarn.resourcemanager
+  - title: YARN NodeManager
+    description: Hadoop NodeManager component of CDH5
+    sls_path: cdh5.hadoop.yarn.nodemanager
+  - title: JournalNode
+    description: Hadoop Historyserver component of CDH5
+    sls_path: cdh5.hadoop.mapreduce.historyserver
   - title: Key Management Server
     description: Key Management Server for HDFS encryption-at-rest
-    sls_path: cdh5.hadoop.kms
+    sls_path: cdh5.hadoop.hdfs.kms
   - title: ZooKeeper
     description: ZooKeeper component of CDH5
     sls_path: cdh5.zookeeper
@@ -81,13 +90,8 @@ pillar_defaults:
       ca_key_pass: CHANGE_ME
     security:
       enable: false
-    namenode:
-      start_service: true
-    datanode:
-      start_service: true
-    journalnode:
-      start_service: true
     yarn:
+      start_service: true
       max_container_size_mb: 11264
       num_cpus: 8
       local_dirs: /mnt/hadoop/yarn/local
@@ -97,6 +101,8 @@ pillar_defaults:
     io:
       sort_factor: 64
       sort_mb: 256
+    hdfs:
+      start_service: true
     dfs:
       name_dir: /mnt/hadoop/hdfs/nn
       checkpoint_dir: /mnt/hadoop/hdfs/snn
@@ -106,6 +112,8 @@ pillar_defaults:
       permissions: true
       block_size: 268435456
       replication: 3
+    mapreduce:
+      start_service: true
     mapred:
       system_dir: /hadoop/system/mapred
       memory_mb: 2048
