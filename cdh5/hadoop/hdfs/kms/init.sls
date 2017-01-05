@@ -1,15 +1,15 @@
 include:
   - cdh5.repo
-  - cdh5.hadoop.kms.conf
+  - cdh5.hadoop.hdfs.kms.conf
   - cdh5.landing_page
   {% if salt['pillar.get']('cdh5:kms:start_service', True) %}
-  - cdh5.hadoop.kms.service
+  - cdh5.hadoop.hdfs.kms.service
   {% endif %}
   {% if pillar.cdh5.security.enable %}
   - krb5
   - cdh5.security
   - cdh5.security.stackdio_user
-  - cdh5.hadoop.kms.security
+  - cdh5.hadoop.hdfs.kms.security
   {% endif %}
 
 

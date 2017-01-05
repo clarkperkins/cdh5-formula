@@ -1,4 +1,4 @@
-{% set standby = (salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.yarn.resourcemanager', 'grains.items', 'compound') | count) > 1 %}
+{% set standby = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.yarn.standby-resourcemanager', 'grains.items', 'compound') %}
 {% set mapred_log_dir = '/var/log/hadoop-yarn' %}
 
 ##

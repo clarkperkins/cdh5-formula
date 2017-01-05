@@ -20,6 +20,9 @@ components:
   - title: YARN ResourceManager
     description: Hadoop ResourceManager component of CDH5
     sls_path: cdh5.hadoop.yarn.resourcemanager
+  - title: HDFS Standby ResourceManager
+    description: Standby ResourceManager for high-availability
+    sls_path: cdh5.hadoop.yarn.standby-resourcemanager
   - title: YARN NodeManager
     description: Hadoop NodeManager component of CDH5
     sls_path: cdh5.hadoop.yarn.nodemanager

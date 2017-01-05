@@ -1,4 +1,4 @@
-{% set kms = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.kms', 'grains.items', 'compound') %}
+{% set kms = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.hdfs.kms', 'grains.items', 'compound') %}
 {% set packages = salt['grains.filter_by']({
    'Debian': {
       'service': 'mysql'

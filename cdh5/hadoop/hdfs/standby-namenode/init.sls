@@ -8,7 +8,7 @@ include:
   - cdh5.hadoop.conf
   - cdh5.landing_page
   {% if salt['pillar.get']('cdh5:hdfs:start_service', True) %}
-  - cdh5.hadoop.standby-namenode.service
+  - cdh5.hadoop.hdfs.standby-namenode.service
   {% endif %}
   {% if pillar.cdh5.encryption.enable %}
   - cdh5.hadoop.encryption

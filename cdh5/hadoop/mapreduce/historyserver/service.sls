@@ -1,4 +1,4 @@
-{% set kms = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.kms', 'grains.items', 'compound') %}
+{% set kms = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.hdfs.kms', 'grains.items', 'compound') %}
 {% set mapred_staging_dir = '/user/history' %}
 
 # When security is enabled, we need to get a kerberos ticket

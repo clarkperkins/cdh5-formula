@@ -3,8 +3,8 @@ include:
   - cdh5.repo
   - cdh5.hadoop.conf
   - cdh5.landing_page
-  {% if salt['pillar.get']('cdh5:mapreduce:start_service', True) %}
-  - cdh5.hadoop.mapreduce.historyserver.service
+  {% if salt['pillar.get']('cdh5:yarn:start_service', True) %}
+  - cdh5.hadoop.yarn.resourcemanager.service
   {% endif %}
   {% if pillar.cdh5.encryption.enable %}
   - cdh5.hadoop.encryption
@@ -16,12 +16,13 @@ include:
   - cdh5.hadoop.security
   {% endif %}
 
+
 ##
-# Installs the mapreduce historyserver package.
+# Installs the yarn resourcemanager package.
 #
 # Depends on: JDK
 ##
-hadoop-mapreduce-historyserver:
+hadoop-yarn-resourcemanager:
   pkg:
     - installed
     - require:

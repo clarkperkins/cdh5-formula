@@ -2,7 +2,7 @@
 {% if pillar.cdh5.security.enable %}
 {% from 'krb5/settings.sls' import krb5 with context %}
 {% endif %}
-{% set kms = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.kms', 'grains.items', 'compound') %}
+{% set kms = salt['mine.get']('G@stack_id:' ~ grains.stack_id ~ ' and G@roles:cdh5.hadoop.hdfs.kms', 'grains.items', 'compound') %}
 IMPALA_CATALOG_SERVICE_HOST={{ss_host}}
 IMPALA_STATE_STORE_HOST={{ss_host}}
 IMPALA_STATE_STORE_PORT=24000

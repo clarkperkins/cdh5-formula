@@ -7,7 +7,7 @@ include:
   - cdh5.landing_page
   - cdh5.hadoop.client
   {% if salt['pillar.get']('cdh5:hdfs:start_service', True) %}
-  - cdh5.hadoop.datanode.service
+  - cdh5.hadoop.hdfs.datanode.service
   {% endif %}
   {% if pillar.cdh5.encryption.enable %}
   - cdh5.hadoop.encryption
