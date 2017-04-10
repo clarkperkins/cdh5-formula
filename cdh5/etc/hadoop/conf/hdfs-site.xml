@@ -22,7 +22,7 @@
     </property>
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>{{ pillar.cdh5.dfs.data_dir }}</value>
+        <value>{{ pillar.cdh5.dfs.data_dirs }}</value>
     </property>
     <!-- Leave a certain number of bytes of the disk space open -->
     <property>

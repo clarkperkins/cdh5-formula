@@ -105,6 +105,26 @@
         <name>hue.kerberos.principal.shortname</name>
         <value>hue</value>
     </property>
+    <property>
+        <name>hadoop.http.filter.initializers</name>
+        <value>org.apache.hadoop.security.AuthenticationFilterInitializer,org.apache.hadoop.http.lib.StaticUserWebFilter</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.type</name>
+        <value>kerberos</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.simple.anonymous.allowed</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.kerberos.principal</name>
+        <value>HTTP/_HOST@{{ krb5.realm }}</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.kerberos.keytab</name>
+        <value>/etc/hadoop/conf/HTTP.keytab</value>
+    </property>
     {%- endif %}
     {% if kms %}
     <property>

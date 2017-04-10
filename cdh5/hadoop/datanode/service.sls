@@ -1,34 +1,61 @@
-{% set yarn_local_dir = salt['pillar.get']('cdh5:yarn:local_dirs', '/mnt/hadoop/yarn/local') %}
-{% set yarn_log_dir = salt['pillar.get']('cdh5:yarn:log_dirs', '/mnt/hadoop/yarn/logs') %}
-{% set dfs_data_dir = salt['pillar.get']('cdh5:dfs:data_dir', '/mnt/hadoop/hdfs/data') %}
+{% set yarn_local_dirs = salt['pillar.get']('cdh5:yarn:local_dirs', ['/mnt/hadoop/yarn/local']) %}
+{% set yarn_log_dirs = salt['pillar.get']('cdh5:yarn:log_dirs', ['/mnt/hadoop/yarn/logs']) %}
+{% set dfs_data_dir = salt['pillar.get']('cdh5:dfs:data_dirs') %}
+{% set dfs_data_dirs = salt['pillar.get']('cdh5:dfs:data_dirs', ['/mnt/hadoop/hdfs/dn']) %}
 
 
-# make the local storage directories
-datanode_yarn_local_dirs:
-  cmd:
-    - run
-    - name: 'for dd in `echo {{ yarn_local_dir}} | sed "s/,/\n/g"`; do mkdir -p $dd && chmod -R 755 $dd && chown -R yarn:yarn `dirname $dd`; done'
-    - unless: "test -d `echo {{ yarn_local_dir }} | awk -F, '{print $1}'` && [ $(stat -c '%U' $(echo {{ yarn_local_dir }} | awk -F, '{print $1}')) == 'yarn' ]"
+{# For backwards compatibility #}
+{% if yarn_local_dirs is string %}
+  {% set yarn_local_dirs = [yarn_local_dirs] %}
+{% endif %}
+
+{% if yarn_log_dirs is string %}
+  {% set yarn_log_dirs = [yarn_log_dirs] %}
+{% endif %}
+
+{% if dfs_data_dir %}
+  {% set dfs_data_dirs = dfs_data_dir.split(',') %}
+{% endif %}
+
+# Create all the directories
+{% for data_dir in dfs_data_dir %}
+{{ data_dir }}:
+  file:
+    - directory
+    - user: hdfs
+    - group: hdfs
+    - mode: 755
     - require:
       - pkg: hadoop-yarn-nodemanager
+    - require_in:
+      - service: hadoop-hdfs-datanode-svc
+{% endfor %}
 
-# make the log storage directories
-datanode_yarn_log_dirs:
-  cmd:
-    - run
-    - name: 'for dd in `echo {{ yarn_log_dir}} | sed "s/,/\n/g"`; do mkdir -p $dd && chmod -R 755 $dd && chown -R yarn:yarn `dirname $dd`; done'
-    - unless: "test -d `echo {{ yarn_log_dir }} | awk -F, '{print $1}'` && [ $(stat -c '%U' $(echo {{ yarn_log_dir }} | awk -F, '{print $1}')) == 'yarn' ]"
+{% for log_dir in yarn_log_dirs %}
+{{ log_dir }}:
+  file:
+    - directory
+    - user: yarn
+    - group: yarn
+    - mode: 755
     - require:
       - pkg: hadoop-yarn-nodemanager
+    - require_in:
+      - service: hadoop-yarn-nodemanager-svc
+{% endfor %}
 
-# make the hdfs data directories
-dfs_data_dir:
-  cmd:
-    - run
-    - name: 'for dd in `echo {{ dfs_data_dir }} | sed "s/,/\n/g"`; do mkdir -p $dd && chmod -R 755 $dd && chown -R hdfs:hdfs `dirname $dd`; done'
-    - unless: "test -d `echo {{ dfs_data_dir }} | awk -F, '{print $1}'` && [ $(stat -c '%U' $(echo {{ dfs_data_dir }} | awk -F, '{print $1}')) == 'hdfs' ]"
+{% for local_dir in yarn_local_dirs %}
+{{ local_dir }}:
+  file:
+    - directory
+    - user: yarn
+    - group: yarn
+    - mode: 755
     - require:
-      - pkg: hadoop-hdfs-datanode
+      - pkg: hadoop-yarn-nodemanager
+    - require_in:
+      - service: hadoop-yarn-nodemanager-svc
+{% endfor %}
 
 ##
 # Starts the datanode service
@@ -42,7 +69,6 @@ hadoop-hdfs-datanode-svc:
     - name: hadoop-hdfs-datanode
     - require: 
       - pkg: hadoop-hdfs-datanode
-      - cmd: dfs_data_dir
       {% if pillar.cdh5.encryption.enable %}
       - cmd: chown-keystore
       {% endif %}
@@ -64,8 +90,6 @@ hadoop-yarn-nodemanager-svc:
     - name: hadoop-yarn-nodemanager
     - require: 
       - pkg: hadoop-yarn-nodemanager
-      - cmd: datanode_yarn_local_dirs
-      - cmd: datanode_yarn_log_dirs
       {% if pillar.cdh5.encryption.enable %}
       - cmd: chown-keystore
       {% endif %}

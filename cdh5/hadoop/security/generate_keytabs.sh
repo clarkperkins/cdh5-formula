@@ -39,4 +39,7 @@ id -u mapred &> /dev/null && chown mapred:hadoop mapred.keytab
 id -u yarn &> /dev/null && chown yarn:hadoop yarn.keytab
 chmod 400 *.keytab
 
-cp hdfs.keytab hdfs.keytab.bak
+# Add the HTTP keytab
+cp /root/HTTP.keytab /etc/hadoop/conf/HTTP.keytab
+chown hdfs:hadoop /etc/hadoop/conf/HTTP.keytab
+chmod 440 /etc/hadoop/conf/HTTP.keytab
